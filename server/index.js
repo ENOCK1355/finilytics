@@ -18,7 +18,18 @@ import transactionRoutes from "./routes/transaction.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https:"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+      },
+    },
+  })
+);
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
@@ -37,11 +48,11 @@ mongoose
       console.log(`Server is running on port: ${PORT}`);
     });
 
-    // await mongoose.connection.db.dropDatabase(); // Clear the database
-    // KPI.insertMany(kpis);
-    // Product.insertMany(products);
-    // Transaction.insertMany(transactions);
+    await mongoose.connection.db.dropDatabase(); // Clear the database
+    KPI.insertMany(kpis);
+    Product.insertMany(products);
+    Transaction.insertMany(transactions);
   })
-  // .catch((error) => {
-  //   console.error(`${error} did not connect`);
-  // });
+  .catch((error) => {
+    console.error(`${error} did not connect`);
+  });
