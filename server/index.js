@@ -19,14 +19,14 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        imgSrc: ["'self'", "data:", "https:"],
-        scriptSrc: ["'self'"],
-        styleSrc: ["'self'", "'unsafe-inline'", "https:"],
-      },
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+      connectSrc: ["'self'", "https:"], // for APIs
+      fontSrc: ["'self'", "https:", "data:"], // if using Google Fonts or similar
     },
   })
 );
