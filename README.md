@@ -69,6 +69,7 @@ User authentication and multi-user dashboards
 Advanced forecasting using LSTM or Prophet models
 Export reports in PDF and Excel formats
 Cloud deployment on Render / Vercel
+
 ---
 
 ## 🧑‍💼 Author
